@@ -1,0 +1,73 @@
+<div style="margin:auto; width:80%;">
+    <h3>Enter Patient Details</h3>
+    <form action="/addpatients" style="padding:3%;" method="POST" id="patientform">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="pid">Patient ID</label>
+                <input type="text" class="form-control" name="PatientId" placeholder="Patient Identification No">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Patient Name</label>
+                <input type="text" class="form-control" name="Name" placeholder="Name">
+            </div>
+           <div class="form-group col-md-2">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" name="Age" placeholder="Age">
+            </div>
+        </div>
+
+        
+        
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" name="Address" placeholder="1234 Main St">
+        </div>
+        <div class="form-group">
+            <label for="hospi_name">Hospital Name</label>
+            <input type="text" class="form-control" name="HospitalName" placeholder="XYZ Hospital">
+        </div>
+        <div class="form-group">
+            <label for="branch_name">Branch Name</label>
+            <input type="text" class="form-control" name="BranchName" placeholder="Branch name">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" name="City">
+            </div>
+        </div>
+        <div class="form-row">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <p id='stat' class="text-success" style="margin-left:5%;"></p>
+        <p id='fstat' class="text-danger" style="margin-left:5%;"></p>
+        </div>
+    </form>
+    
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    $("#patientform").submit(function( event ) {
+        event.preventDefault();
+        var data = $('#patientform').serialize();
+        console.log(data);
+        axios({
+            method: 'post',
+            url: '/addpatients',
+            data: data
+        })
+        .then(function (response) {
+            if(response.data=='Success') toastr.success(response.data)
+            else toastr.error(response.data)
+        })
+        .catch(function (error) {
+            toastr.error("Unable to contact server. Please try again.")
+        });
+    });
+</script>
+
+</div>
